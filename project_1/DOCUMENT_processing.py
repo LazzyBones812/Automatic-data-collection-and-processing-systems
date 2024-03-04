@@ -24,7 +24,8 @@ def docx_process(fnd: str):
             fout.write(paragraph.text + '\n')
 
 def djvu_process(fnd: str):
-    pass
+    djvu_str_path = "djvused " + fnd + " -u -e \"print-pure-txt\" > DJVU_page_processing.txt"
+    os.system(djvu_str_path)
 
 name_doc = input('Введите название документа вместе с расширением: ')
 full_name_doc = os.getcwd() + '\\' + name_doc
