@@ -8,6 +8,37 @@ url = 'https://pmpu.space/35005692bcff46169bae5932d91b30c5'
 response = requests.get(url)
 soup = BeautifulSoup(response.content, 'html.parser')
 
+''' ФИО преподавателей кафедры "Технологии программирования" '''
+def parse_full_name_of_teacher():
+    all_info = soup.find_all('span', {'class': 'notion-semantic-string'})
+    res_fnt = []
+    for r in all_info:
+        res_text_in_span = r.find('span')
+        result = res_text_in_span.find('a', rel=None)
+        if result is not None:
+            res_fnt.append(result.text)
+    return res_fnt
+
+''' Научные работы, которые проводятся на кафедре "Технологии программирования" '''
+def parse_scientific_work():
+    all_info = soup.find_all('li', {'class': 'notion-list-item'})
+    res_sw = []
+    for r in all_info:
+        res_sw.append(r.text)
+    return res_sw
+
+''' Email всех преподавателей кафедры "Технологии программирования" '''
+def parse_email_of_teacher():
+    all_info = soup.find_all('span', {'class': 'notion-semantic-string'})
+    res_et = []
+    for r in all_info:
+        result = r.find('a', {'rel':'noopener noreferrer'})
+        if result is not None:
+            if '@spbu.ru' in result.text:
+                res_et.append(result.text)
+    return res_et
+
+
 ''' Очистка html-страницы. Оставляется только информация, которая входит в класс notion-sematic-string '''
 result = soup.find_all('span', {'class': 'notion-semantic-string'})
 
