@@ -14,12 +14,12 @@ def doc_process(fnd: str):
     doc = app.Documents.Open(fnd) 
     content=doc.Content.Text
     app.Quit()
-    with open('DOC_page_processing.txt', 'w+') as fout:
+    with open('DOC_page_processing.txt', 'w+', encoding='utf-8') as fout:
         fout.write(content)
 
 def docx_process(fnd: str):
     doc = docx.Document(fnd)
-    with open('DOCX_page_processing.txt', 'w+') as fout:
+    with open('DOCX_page_processing.txt', 'w+', encoding='utf-8') as fout:
         for paragraph in doc.paragraphs:
             fout.write(paragraph.text + '\n')
 
@@ -29,20 +29,26 @@ def djvu_process(fnd: str):
 
 def main_work(fnd):
     if not os.path.isfile(fnd):
+        print('Такого файла не существует')
         return 'Такого файла не существует'
     elif fnd.endswith('.pdf'):
         pdf_process(fnd)
-        return 'PDF файл успешно создан'
+        print('Файл PDF обработан')
+        return 'Файл PDF обработан'
     elif fnd.endswith('.doc'):
         doc_process(fnd)
-        return 'DOC файл успешно создан'
+        print('Файл DOC обработан')
+        return 'Файл DOC обработан'
     elif fnd.endswith('.docx'):
         docx_process(fnd)
-        return 'DOCX файл успешно создан'
+        print('Файл DOCX обработан')
+        return 'Файл DOCX обработан'
     elif fnd.endswith('.djvu'):
         djvu_process(fnd)
-        return 'DJVU файл успешно создан'
+        print('Файл DJVU обработан')
+        return 'Файл DJVU обработан'
     else:
+        print('Неверное расширение файла')
         return 'Неверное расширение файла'
 
 # name_doc = input('Введите название документа вместе с расширением: ')
