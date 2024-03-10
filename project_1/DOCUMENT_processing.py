@@ -27,18 +27,24 @@ def djvu_process(fnd: str):
     djvu_str_path = "djvused " + fnd + " -u -e \"print-pure-txt\" > DJVU_page_processing.txt"
     os.system(djvu_str_path)
 
-name_doc = input('Введите название документа вместе с расширением: ')
-full_name_doc = os.getcwd() + '\\' + name_doc
+def main_work(fnd):
+    if not os.path.isfile(fnd):
+        return 'Такого файла не существует'
+    elif fnd.endswith('.pdf'):
+        pdf_process(fnd)
+        return 'PDF файл успешно создан'
+    elif fnd.endswith('.doc'):
+        doc_process(fnd)
+        return 'DOC файл успешно создан'
+    elif fnd.endswith('.docx'):
+        docx_process(fnd)
+        return 'DOCX файл успешно создан'
+    elif fnd.endswith('.djvu'):
+        djvu_process(fnd)
+        return 'DJVU файл успешно создан'
+    else:
+        return 'Неверное расширение файла'
 
-if not os.path.isfile(full_name_doc):
-    print('Такого файла не существует')
-elif name_doc.endswith('.pdf'):
-    pdf_process(full_name_doc)
-elif name_doc.endswith('.doc'):
-    doc_process(full_name_doc)
-elif name_doc.endswith('.docx'):
-    docx_process(full_name_doc)
-elif name_doc.endswith('.djvu'):
-    djvu_process(full_name_doc)
-else:
-    print('Неверное расширение файла ')
+# name_doc = input('Введите название документа вместе с расширением: ')
+# full_name_doc = os.getcwd() + '\\' + name_doc
+# main_work(full_name_doc)
