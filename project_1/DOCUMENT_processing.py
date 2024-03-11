@@ -4,7 +4,7 @@ import docx
 import win32com.client
 
 def pdf_process(fnd: str):
-    reader = PdfReader(fnd)
+    reader = PdfReader(fnd, strict=False)
     with open('PDF_page_processing.txt', 'w+', encoding='utf-8') as fout:
         for p in range(len(reader.pages)):
             fout.write(reader.pages[p].extract_text())
